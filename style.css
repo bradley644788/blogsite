@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Momo+Trust+Sans:wght@200..800&display=swap');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --color-background: hsl(240 48% 96%);
+    --color-background-elevated: hsl(0, 0%, 100%);
+    --color-text: hsl(240 48% 10%);
+    --color-text-muted: hsl(240 48% 20% / .9);
+    --color-accent: hsl(225, 73%, 55%);
+    --max-width: 84rem;
+    --space: 1.25rem;
+    --border-radius: .625rem;
+    --box-shadow: 0 0 .625rem rgba(0, 0, 0, .05);
+}
+
+body {
+    background: var(--color-background);
+    color: var(--color-text-muted);
+    font-family: "Momo Trust Sans", sans-serif;
+    line-height: 1.8;
+}
+
+:where(h1, h2) {
+    color: var(--color-text);
+}
+
+a {
+    color: var(--color-accent);
+    font-weight: 500;
+    text-decoration-thickness: .125rem;
+
+    &:hover {
+        text-decoration: none;
+    }
+}
+
+.wrapper {
+    width: min(var(--max-width), 100% - var(--space) * 2);
+    margin-inline: auto;
+}
+
+.grid {
+    display: grid;
+    gap: var(--space);
+
+    &.layout {
+        grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    }
+}
+
+.flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space);
+}
+
+:where(.grid, .flex) {
+    &.ai-c {
+        align-items: center;
+    }
+}
+
+header {
+    background: var(--color-background-elevated);
+    padding-block: calc(var(--space) / 2);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
+    box-shadow: var(--box-shadow);
+    position: sticky;
+    top: 0;
+
+    & h1 {
+        font-size: 1.75em;
+    }
+}
+
+.card {
+    background: var(--color-background-elevated);
+    padding: var(--space);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+
+    & hr {
+        border: .063rem solid var(--color-background);
+    }
+
+    & img {
+        display: block;
+        width: calc(100% + 40px);
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        margin: -20px;
+        padding-bottom: 20px;
+        border-radius: 10px 10px 0 0;
+    }
+
+    & .description {
+        height: 4lh;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+:where(input, button) {
+    font-family: inherit;
+    font-weight: 500;
+    padding: calc(var(--space) / 1.5);
+    border: none;
+}
+
+input {
+    background: var(--color-background);
+    color: var(--color-text);
+    border-radius: var(--border-radius);
+}
+
+button {
+    background: var(--color-accent);
+    color: var(--color-background);
+    border-radius: var(--border-radius);
+    cursor: pointer;
+
+    &:hover {
+        background: hsl(from var(--color-accent) h s l / .8)
+    }
+}
