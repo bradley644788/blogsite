@@ -15,7 +15,7 @@
     --max-width: 84rem;
     --space: 1.25rem;
     --border-radius: .625rem;
-    --box-shadow: 0 0 .625rem rgba(0, 0, 0, .05);
+    --box-shadow: 0 0 .625rem rgba(0, 0, 0, .05); 
 }
 
 body {
@@ -23,6 +23,11 @@ body {
     color: var(--color-text-muted);
     font-family: "Momo Trust Sans", sans-serif;
     line-height: 1.8;
+}
+
+::selection {
+    background: var(--color-accent);
+    color: var(--color-background);
 }
 
 :where(h1, h2) {
@@ -34,7 +39,7 @@ a {
     font-weight: 500;
     text-decoration-thickness: .125rem;
 
-    &:hover {
+    &:not(:hover) {
         text-decoration: none;
     }
 }
@@ -66,12 +71,14 @@ a {
 }
 
 header {
-    background: var(--color-background-elevated);
+    backdrop-filter: blur(2rem);
+    background: hsl(from var(--color-background-elevated) h s l / .8);
     padding-block: calc(var(--space) / 2);
     border-radius: 0 0 var(--border-radius) var(--border-radius);
     box-shadow: var(--box-shadow);
     position: sticky;
     top: 0;
+    z-index: 1;
 
     & h1 {
         font-size: 1.75em;
@@ -98,10 +105,30 @@ header {
         border-radius: 10px 10px 0 0;
     }
 
-    & .description {
-        height: 4lh;
+    & .preview {
+        height: calc(7lh - var(--space));
         overflow: hidden;
         text-overflow: ellipsis;
+        position: relative;
+
+        &::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, transparent 40%, var(--color-background-elevated));
+            pointer-events: none;
+        }
+    }
+
+    & > :last-child:is(a) {
+        margin: calc(var(--space) * -1 / 2) calc(var(--space) * -1) calc(var(--space) * -1) calc(var(--space) * -1);
+        padding: var(--space);
+        border-radius: 0 0 var(--border-radius) var(--border-radius);
+
+        &:hover {
+            background: hsl(from var(--color-accent) h s l / .06);
+            box-shadow: var(--box-shadow);
+        }
     }
 }
 
