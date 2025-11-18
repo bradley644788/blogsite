@@ -4,43 +4,32 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="style.css">
-        <title>Login</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Momo+Trust+Sans:wght@200..800&display=swap" rel="stylesheet">
+        <title>login | techblog</title>
     </head>
 
     <body class="grid">
         <header>
             <div class="wrapper">
-                <h1>techblog</h1>
+                <h1> <a href="index.php">techblog</a> </h1>
             </div>
         </header>
 
-        <main class="wrapper grid">
-            <section class="card grid">
+        <main class="grid wrapper">
+            <article class="grid card">
                 <h2>Login</h2>
-                <hr>
-                <p>Don't have an account? <a href="register.php">Register here</a> </p>
+                <p>Don't have an account? <a href="register.php">Register here!</a> </p>
 
-                <?php if (isset($_SESSION['error'])): ?>
-                    <p class="error-message">
-                        <?= htmlspecialchars($_SESSION['error']) ?>
-                    </p>
-                    <?php unset($_SESSION['error']); ?>
-                <?php endif; ?>
-
-                <form action="config/login.php" class="flex" method="POST">
-                    <div class="flex ai-c">
-                        <label for="email">[@] Email</label>
-                        <input type="text" id="email" name="email" placeholder="Email">
-                    </div>
-
-                    <div class="flex ai-c">
-                        <label for="password">[*] Password</label>
-                        <input type="password" id="password" name="password" placeholder="Password">
-                    </div>
-
+                <form action="config/login.php" class="grid" method="POST">
+                    <label for="email">[@] Email</label>
+                    <input type="text" id="email" name="email" placeholder="Email">
+                    <label for="password">[*] Password</label>
+                    <input type="password" id="password" name="password" placeholder="Password">
                     <button type="submit">Login</button>
                 </form> 
-            </section>
+            </article>
         </main>
     </body>
 </html>

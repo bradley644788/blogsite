@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['username'] = $user['username'];
         $_SESSION['email'] = $user['email'];
-        header("Location: ../hub.php");
+        header("Location: ../login.php");
     } else {
         echo "Error: " . $stmt->error;
     }
