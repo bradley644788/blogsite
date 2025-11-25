@@ -18,7 +18,7 @@
         </header>
 
         <main class="grid wrapper">
-            <article class="grid card">
+            <article class="grid card form">
                 <h2>Register</h2>
                 <p>Already have an account? <a href="login.php">Login here!</a> </p>
 

@@ -24,7 +24,7 @@ require_once __DIR__ . '\config\MySQL.php';
                         <?php
                     } else {
                         ?>
-                        <a href="login.php" class="button">Login</a>
+                        <a href="login.php">Login</a>
                         <?php
                     }
                 ?>
@@ -48,7 +48,7 @@ require_once __DIR__ . '\config\MySQL.php';
                         $author = $post['author_name'];
                         ?>
                         <article class="grid card">
-                            <img src="<?php echo htmlspecialchars($post['image_url'])?> " alt="" class="aspect-ratio-16_9">
+                            <img src="<?php echo htmlspecialchars($post['image_url'])?> " alt="" class="full-width">
                             <h2><?php echo htmlspecialchars($post['title'])?></h2>
                             <p><?php echo htmlspecialchars($post['excerpt'])?></p>
                             <a href="<?php echo $url; ?>">Read More</a>

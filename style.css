@@ -11,10 +11,8 @@
     --color-text-muted: hsl(from var(--color-background) h s 84% / .84);
     --color-accent: hsl(90 96% 72%);
     --wrapper-width: 90rem;
-    --spacing: 1.25rem;
+    --spacing: 1.5rem;
     --border-radius: calc(var(--spacing) / 2);
-    scrollbar-width: thin;
-    scrollbar-color: var(--color-accent) transparent;
 }
 
 ::selection {
@@ -22,15 +20,16 @@
     color: var(--color-background);
 }
 
+:focus-visible {
+    outline: .125rem solid var(--color-accent);
+}
+
 body {
     background: var(--color-background);
     color: var(--color-text-muted);
     font-family: "Momo Trust Sans", sans-serif;
     line-height: 1.8;
-
-    & > :last-child {
-        margin-bottom: var(--spacing);
-    }
+    margin-block-end: var(--spacing);
 }
 
 :where(h1, h2, h3) {
@@ -38,14 +37,9 @@ body {
 }
 
 a {
-    
-    font-weight: 500;
+    color: var(--color-accent);
     text-decoration-thickness: .125rem;
     text-underline-offset: .25rem;
-
-    &:not(.button) {
-        color: var(--color-accent);
-    }
 
     &:not(:hover) {
         text-decoration: none;
@@ -60,40 +54,66 @@ a {
 .grid {
     display: grid;
     gap: var(--spacing);
-    align-content: start;
-
+    
     &.layout-column-3 {
         grid-template-columns: repeat(auto-fill, minmax(min(var(--wrapper-width) / 4, 100%), 1fr));
     }
-
-    &.layout-blog {
-        @media (width > 54rem) {
-            grid-template-columns: 18rem 1fr;
-
-            & nav {
-                position: sticky;
-                top: calc(4.85rem + ((var(--spacing) / 2) * 2));
+    
+    /* &.layout-comment {
+        @media (width > 32rem) {
+            grid-template-columns: 4rem 1fr;
+            
+            & > .grid {
+                gap: calc(var(--spacing) / 2);
             }
         }
+    } */
+}
+
+.flex {
+    display: flex;
+    flex-flow: row wrap;
+    gap: var(--spacing);
+
+    & .fg-1 {
+        flex-grow: 1;
     }
 
-    &.layout-comment {
-        grid-template: auto / 3.5rem 1fr;
-        gap: var(--spacing);
-        align-items: center;
+    &.ai-b {
+        align-items: baseline;
+    }
+}
 
-        & p {
-            grid-column: span 2;
-        }
+:where(input, textarea, button) {
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    padding: calc(var(--spacing) / 2);
+    border: none;
+    border-radius: calc(var(--border-radius) / 2);
+}
 
-        @media (width > 32rem) {
-            gap: 0 var(--spacing);
-            align-items: start;
+:where(input, textarea) {
+    background: var(--color-background);
+    color: inherit;
+}
 
-            & p {
-                grid-column: span 1 / -1;
-            }
-        }
+textarea {
+    min-height: 1lh;
+    height: 1lh;
+    resize: vertical;
+    box-sizing: content-box;
+}
+
+button {
+    height: fit-content;
+    background: var(--color-accent);
+    color: var(--color-background);
+    cursor: pointer;
+
+    &:is(:hover, :focus-visible) {
+        background: hsl(from var(--color-accent) h s l / .9);
+        outline-color: transparent;
     }
 }
 
@@ -104,12 +124,9 @@ header {
     border-radius: 0 0 var(--border-radius) var(--border-radius);
     position: sticky;
     top: 0;
-    z-index: 10;
+    z-index: 1;
 
     & .wrapper {
-        display: flex;
-        flex-flow: row wrap;
-        gap: var(--spacing);
         justify-content: space-between;
         align-items: center;
     }
@@ -120,84 +137,46 @@ header {
     background: var(--color-background-elevated);
     padding: var(--spacing);
     border-radius: var(--border-radius);
+    overflow: hidden;
 
-    & > :first-child:is(img) {
-        width: calc(100% + var(--spacing) * 2);
-        margin: calc(var(--spacing) * -1) calc(var(--spacing) * -1) 0 calc(var(--spacing) * -1);
-        object-fit: cover;
-        border-radius: var(--border-radius) var(--border-radius) 0 0;
-
-        &.aspect-ratio-16_9 {
-            aspect-ratio: 16 / 9;
-        }
-
-        &.aspect-ratio-21_9 {
-            aspect-ratio: 21 / 9;
-        }
-    }
-
-    & :not(:first-child) img {
-        display: block;
+    & img {
         max-width: 100%;
-        border-radius: 50%;
+        border-radius: calc(var(--border-radius) / 2);
+
+        &.full-width {
+            width: calc(100% + var(--spacing) * 2);
+            max-width: unset;
+            max-height: 32rem;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            margin: calc(var(--spacing) * -1) calc(var(--spacing) * -1) 0 calc(var(--spacing) * -1);
+            border-radius: 0;
+        }
+
+        &.circle {
+            border-radius: 50%;
+        }
     }
 
-    & :last-child:is(a) {
-        width: fit-content;
-    }
-
-    &:has(form) {
+    &.form {
         width: min(calc(var(--wrapper-width) / 3), 100%);
         margin-inline: auto;
     }
+}
 
-    &.comments > * {
-        padding-right: var(--spacing);
+#comments-container {
+    & > section {
+        background: hsl(from var(--color-accent) h s l / .08);
+        border-left: calc(var(--border-radius) / 2) solid var(--color-accent);
+        padding: var(--spacing);
+        border-radius: calc(var(--border-radius) / 2);
+
+        & img {
+            width: 4rem;
+        }
+
+        & span {
+            font-size: .8em;
+        }
     }
-}
-
-:where(input, button, .button) {
-    font-family: inherit;
-    font-weight: 500;
-    text-decoration: none;
-    padding: calc(var(--spacing) / 2);
-    border: none;
-    border-radius: calc(var(--border-radius) / 2);
-}
-
-input {
-    background: var(--color-background);
-    color: var(--color-text-muted);
-}
-
-:where(button, .button) {
-    background: var(--color-accent);
-    color: var(--color-background);
-
-    &:hover {
-        background: hsl(from var(--color-accent) h s l / .9);
-        cursor: pointer;
-    }
-}
-
-button.a {
-    all: revert;
-    background: none;
-    color: var(--color-accent);
-    font-family: inherit;
-    font-size: 1em;
-    font-weight: 500;
-    padding: 0;
-    border: none;
-
-    &:hover {
-        text-decoration: underline;
-        text-underline-offset: .25rem;
-        text-decoration-thickness: .125rem;
-        cursor: pointer;
-    }
-}
-
-li {
-    margin-left: var(--spacing);
 }
