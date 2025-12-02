@@ -58,11 +58,12 @@ $conn->close();
             </div>
         </header>
 
-        <main class="grid wrapper">
+        <main class="grid wrapper layout-blog">
             <section class="grid">
                 <article class="grid card">
                     <img src="<?php echo htmlspecialchars($post['image_url'])?> " alt="" class="full-width">
                     <h1><?php echo htmlspecialchars($post['title'])?></h1>
+                    <span><b>article created:</b> <?php echo htmlspecialchars($post['date_posted'])?></span>
                     <p><?php echo htmlspecialchars($post['content'])?></p>
                 </section>
 
@@ -82,15 +83,6 @@ $conn->close();
                 </section>
             </section>
         </main>
-        
-        <script>
-            function onJumpToTitle(id) {
-                const el = document.getElementById(id);
-                if (el) {
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                }
-            }
-        </script>
 
         <script>
             function loadComments() {

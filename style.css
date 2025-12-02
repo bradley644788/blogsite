@@ -13,6 +13,8 @@
     --wrapper-width: 90rem;
     --spacing: 1.5rem;
     --border-radius: calc(var(--spacing) / 2);
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-accent) transparent;
 }
 
 ::selection {
@@ -32,7 +34,7 @@ body {
     margin-block-end: var(--spacing);
 }
 
-:where(h1, h2, h3) {
+:where(h1, h2, h3, b) {
     color: var(--color-text);
 }
 
@@ -58,16 +60,13 @@ a {
     &.layout-column-3 {
         grid-template-columns: repeat(auto-fill, minmax(min(var(--wrapper-width) / 4, 100%), 1fr));
     }
-    
-    /* &.layout-comment {
-        @media (width > 32rem) {
-            grid-template-columns: 4rem 1fr;
-            
-            & > .grid {
-                gap: calc(var(--spacing) / 2);
-            }
+
+    &.layout-blog {
+        @media (width > 72rem) {
+            grid-template-columns: 60% 1fr;
+            align-items: start;
         }
-    } */
+    }
 }
 
 .flex {
@@ -81,6 +80,14 @@ a {
 
     &.ai-b {
         align-items: baseline;
+    }
+
+    &.ai-c {
+        align-items: center;
+    }
+
+    &.jc-sb {
+        justify-content: space-between;
     }
 }
 
@@ -146,7 +153,7 @@ header {
         &.full-width {
             width: calc(100% + var(--spacing) * 2);
             max-width: unset;
-            max-height: 32rem;
+            max-height: 36rem;
             aspect-ratio: 16 / 9;
             object-fit: cover;
             margin: calc(var(--spacing) * -1) calc(var(--spacing) * -1) 0 calc(var(--spacing) * -1);
@@ -165,6 +172,11 @@ header {
 }
 
 #comments-container {
+    max-height: 36rem;
+    padding-right: calc(var(--spacing) / 2);
+    border-radius: calc(var(--border-radius) / 2);
+    overflow-y: scroll;
+
     & > section {
         background: hsl(from var(--color-accent) h s l / .08);
         border-left: calc(var(--border-radius) / 2) solid var(--color-accent);

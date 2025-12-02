@@ -33,6 +33,10 @@ require_once __DIR__ . '\config\MySQL.php';
 
         <main class="grid wrapper">
             <section class="grid layout-column-3">
+                <article class="grid card" style="place-content: center;">
+                    <a href="writeblog.php">Write Article</a>
+                </article>
+
                 <?php
                 $sql = "
                 SELECT posts.*, users.username AS author_name

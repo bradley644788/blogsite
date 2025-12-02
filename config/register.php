@@ -11,13 +11,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = trim($_POST['password'] ?? '');
     echo $password;
 
-    // Validate required fields
     if (empty($username) || empty($email) || empty($password)) {
         echo "Please fill in all fields.";
         exit;
     }
- 
-    // Optional: validate username/email format
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         echo "Invalid email format.";
         exit;
@@ -27,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo "Username must be 3–20 characters long and contain only letters, numbers, or underscores.";
         exit;
     }
- 
-    // Check if username already exists
+
+    // check if username already exists
     $stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -42,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $stmt->close();
  
-    // Check if email already exists
+    // check if email already exists
     $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
     $stmt->bind_param("s", $email);
     $stmt->execute();

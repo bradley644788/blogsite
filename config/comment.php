@@ -12,13 +12,13 @@ if (!$post_id || !is_numeric($post_id)) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  
     if (!isset($_SESSION['username'])) {
-        echo "<p>You must be logged in to comment.</p>";
+        echo "You must be signed into an account before submitting a comment.";
         exit;
     }
  
     $comment = trim($_POST['comment']);
     if (empty($comment)) {
-        die("Comment cannot be empty.");
+        die("Comment must contain text.");
     }
  
     $stmt = $conn->prepare("INSERT INTO comments (post_id, user_id, comment_text) VALUES (?, ?, ?)");
